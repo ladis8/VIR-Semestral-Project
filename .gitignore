@@ -1,0 +1,4 @@
+gatherHandImages_script/output.avi
+gatherHandImages_script/data/*
+gatherHandImages_script/__pycache__/*
+

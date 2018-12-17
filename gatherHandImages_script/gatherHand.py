@@ -63,6 +63,9 @@ if __name__ == "__main__":
     dataset = GRDataset("gr_training_set", res=(128,128), saveImages= SAVE_AS_PNG)
 
     print("Get ready...")
+    while True:
+        if CAM.render() is None: break
+
     time.sleep(1)
     print("Gathering training dataset...")
     dataset.gather(IMAGES_GATHER, CAM, len(dataset.dataset))

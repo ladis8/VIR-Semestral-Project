@@ -34,7 +34,7 @@ class CamControl:
         frame = cv2.resize(cropped_frame, dsize=res, interpolation=cv2.INTER_CUBIC)
 
         # Make frame grayscale
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        #frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         return frame
 

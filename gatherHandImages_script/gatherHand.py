@@ -4,10 +4,14 @@ import os.path
 import numpy as np
 import cv2
 from cam_control import CamControl
+import sys
+import glob
 
 
-IMAGES_GATHER = 10
+IMAGES_GATHER = 100
 SAVE_AS_PNG = True
+DELAY = 500 #ms
+NAME = "gr_training_set"
 
 
 class GRDataset:
@@ -36,6 +40,7 @@ class GRDataset:
             img = CAM.render(self.res)
             self.dataset.append(img)
             if self.saveImages: cv2.imwrite("data/images/dataset_image{}.png".format(startindex + i), img)
+            time.sleep(DELAY/1000.0)
 
         print("Saving dataset...")
         pickle.dump(self.dataset, open("data/{}".format(self.name), "wb"))
@@ -59,16 +64,24 @@ class GRDataset:
 
 if __name__ == "__main__":
 
-    CAM = CamControl()
-    dataset = GRDataset("gr_training_set", res=(128,128), saveImages= SAVE_AS_PNG)
+    assert len(sys.argv) > 1
+    if sys.argv[1] == "gather":
+        CAM = CamControl()
+        dataset = GRDataset(NAME, res=(128,128), saveImages= SAVE_AS_PNG)
 
-    print("Get ready...")
-    while True:
-        if CAM.render() is None: break
+        print("Get ready...")
+        while True:
+            if CAM.render() is None: break
 
-    time.sleep(1)
-    print("Gathering training dataset...")
-    dataset.gather(IMAGES_GATHER, CAM, len(dataset.dataset))
+        time.sleep(1)
+        print("Gathering training dataset...")
+        dataset.gather(IMAGES_GATHER, CAM, len(dataset.dataset))
+
+    elif sys.argv[1] == "clean":
+        for filename in glob.glob('./data/images/*'):
+            os.remove(filename)
+        os.remove("./data/{}".format(NAME))
+
 
 
 

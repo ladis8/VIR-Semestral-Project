@@ -1,4 +1,13 @@
 gatherHandImages_script/output.avi
 gatherHandImages_script/data/*
 gatherHandImages_script/__pycache__/*
+gatherHandImages_script/.idea/*
+
+cycleGan_script/.idea/*
+cycleGan_script/__pycache__/*
+cycleGan_script/checker_files/*
+cycleGan_script/pretrained/*
+cycleGan_script/pretrained_cycle/*
+
+
 
